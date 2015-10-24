@@ -10,6 +10,8 @@ using System.Threading;
 
 [InitializeOnLoad]
 public class ClojureRepl : EditorWindow {
+  const int REPL_PORT = 11311;
+
   static ClojureRepl() {
     // TODO read from config
     ClojureAssetPostprocessor.SetupLoadPath();
@@ -28,7 +30,7 @@ public class ClojureRepl : EditorWindow {
   [MenuItem ("Arcadia/REPL/Start %#r")]
   public static void StartREPL () {
     RT.load("arcadia/repl");
-    RT.var("arcadia.repl", "start-server").invoke(11211);
+	RT.var("arcadia.repl", "start-server").invoke(REPL_PORT);
     EditorApplication.update += ClojureRepl.Update;
   }
 

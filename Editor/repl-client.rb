@@ -1,12 +1,13 @@
 require "io/wait"
 require "socket"
 
+REPL_PORT = 11311
 $input = ""
 $input.force_encoding("UTF-8")
 $s = UDPSocket.new
 
 def repl_send code, strip_nil=false
-  $s.send code, 0, "localhost", 11211
+  $s.send code, 0, "localhost", REPL_PORT
   $s.wait
   out = $s.recv($s.nread)
   print strip_nil ? out.gsub(/\s*nil$/, "\n") : out
